@@ -48,7 +48,11 @@ jobs:
       - name: Run Playwright tests
         run: |
           cd playwright-repo
-          npx playwright test
+          npx playwright test --reporter=html
+
+      - name: List Directory Contents
+        run: |
+          ls -la  # List all files and directories
 
       - name: Compress Playwright report
         if: always()
