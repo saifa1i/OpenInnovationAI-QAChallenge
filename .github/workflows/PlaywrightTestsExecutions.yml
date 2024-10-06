@@ -8,6 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Install Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
       # Step 1: Checkout first repo (app)
       - name: Checkout app repo
         uses: actions/checkout@v3
@@ -20,13 +25,6 @@ jobs:
         working-directory: app-repo
         run: |
           docker-compose up
-
-      # Step 3: Checkout second repo (Playwright tests)
-      - name: Checkout Playwright repo
-        uses: actions/checkout@v3
-        with:
-          repository: saifa1i/OpenInnovationAI-QAChallenge
-          path: playwright-repo
 
       # Step 4: Install dependencies for Playwright tests
       - name: Set up Node.js and install Playwright dependencies
