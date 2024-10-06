@@ -1,0 +1,17 @@
+{
+    "title" : "Post /models endpoint json response schema",
+    "type" : "object",
+    "required": ["id", "name", "owner"],
+    "additionalProperties" : false,
+    "properties" : {
+        "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          }
+    }
+}

@@ -1,0 +1,49 @@
+{
+    "title": "Get /models endpoint failed json response schema",
+    "type": "object",
+    "required": [
+        "detail"
+    ],
+    "properties": {
+        "detail": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "type",
+                    "loc",
+                    "msg",
+                    "input"
+                ],
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "missing"
+                        ]
+                    },
+                    "loc": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "msg": {
+                        "type": "string"
+                    },
+                    "input": {
+                        "type": "object",
+                        "required": [
+                            "name"
+                        ],
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

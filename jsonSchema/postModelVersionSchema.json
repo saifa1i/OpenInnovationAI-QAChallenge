@@ -1,0 +1,25 @@
+{
+  "title": "Post /models/mode_id/versions endpoint json response schema",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "parent_model_id",
+    "hugging_face_model"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "parent_model_id": {
+      "type": "string"
+    },
+    "hugging_face_model": {
+      "type": "string"
+    }
+  }
+}

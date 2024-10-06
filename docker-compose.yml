@@ -1,0 +1,28 @@
+services:
+  playwright:
+    build: .
+    container_name: playwright-tests
+    volumes:
+      - ./:/app
+      - ./reports:/app/playwright-report  # Mount the reports directory
+    working_dir: /app
+    environment:
+      - CI=true
+    shm_size: '2gb'
+    # cap_add:
+    #   - SYS_ADMIN
+    # security_opt:
+    #   - seccomp=unconfined
+    command: ["npx", "playwright", "test", "--reporter=html", "--output=playwright-report"]
+
+  report-server:
+    image: node:18
+    container_name: report-server
+    volumes:
+      - ./reports:/app/playwright-report  # Mount the reports directory
+    working_dir: /app/playwright-report
+    command: ["http-server", "-p", "3000"]
+    ports:
+      - "3000:3000"  # Expose port 8080
+    
+    entrypoint: ["/bin/sh", "-c", "npm install -g http-server && http-server -p 3000"]

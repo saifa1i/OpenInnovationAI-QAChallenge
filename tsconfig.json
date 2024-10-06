@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+      "target": "ES2020",           // Target modern JavaScript (ES2020)
+      "module": "ESNext",           // Use ES modules
+      "moduleResolution": "node",   // Resolve modules like Node.js
+      "esModuleInterop": true,      // Ensure compatibility between CommonJS and ES modules
+      "skipLibCheck": true,         // Skip type checking of declaration files for speed
+      "strict": true,
+      "resolveJsonModule": true,  // Enable importing JSON files
+    }
+  }
