@@ -27,14 +27,6 @@ jobs:
           docker-compose up -d
           docker-compose logs
 
-      - name: Wait for app to be ready
-        run: |
-          # Replace the URL with the actual endpoint of your app, such as http://0.0.0.0:8080
-          until curl -s http://0.0.0.0:8080; do 
-            echo "Waiting for the app to be ready..."; 
-            sleep 5;
-          done
-
       - name: Checkout Playwright repo
         uses: actions/checkout@v3
         with:
