@@ -24,7 +24,22 @@ jobs:
       - name: Start Docker Compose App
         working-directory: app-repo
         run: |
-          docker-compose up
+          docker-compose up -d
+          docker-compose logs
+
+      - name: Wait for app to be ready
+        run: |
+          # Replace the URL with the actual endpoint of your app, such as http://localhost:8080
+          until curl -s http://localhost:8080; do 
+            echo "Waiting for the app to be ready..."; 
+            sleep 5;
+          done
+
+      - name: Checkout Playwright repo
+        uses: actions/checkout@v3
+        with:
+          repository: saifa1i/OpenInnovationAI-QAChallenge
+          path: playwright-repo
 
       # Step 4: Install dependencies for Playwright tests
       - name: Set up Node.js and install Playwright dependencies
