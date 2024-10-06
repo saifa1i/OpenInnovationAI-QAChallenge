@@ -50,11 +50,16 @@ jobs:
           cd playwright-repo
           npx playwright test
 
-      - name: Upload results
+      - name: Compress Playwright report
+        run: |
+          zip -r playwright-report.zip playwright-report  # Zipping the report directory
+
+      # Step 8: Upload Playwright report as artifact
+      - name: Upload Playwright report
         uses: actions/upload-artifact@v3
         with:
-          name: playwright-results
-          path: ./playwright-report
+          name: playwright-report
+          path: playwright-report.zip
           
       # Step 6: Stop and clean up Docker containers after tests
       - name: Stop Docker Compose
