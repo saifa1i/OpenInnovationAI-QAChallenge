@@ -19,7 +19,7 @@ jobs:
       - name: Start Docker Compose App
         working-directory: app-repo
         run: |
-          docker-compose up -d
+          docker-compose up
 
       # Step 3: Checkout second repo (Playwright tests)
       - name: Checkout Playwright repo
