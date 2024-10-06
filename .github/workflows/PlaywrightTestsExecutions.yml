@@ -51,11 +51,13 @@ jobs:
           npx playwright test
 
       - name: Compress Playwright report
+        if: always()
         run: |
           zip -r ./playwright-report.zip ./playwright-report  # Zipping the report directory
 
       # Step 8: Upload Playwright report as artifact
       - name: Upload Playwright report
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: playwright-report
@@ -63,6 +65,7 @@ jobs:
           
       # Step 6: Stop and clean up Docker containers after tests
       - name: Stop Docker Compose
+        if: always()
         working-directory: app-repo
         run: |
           docker-compose down
