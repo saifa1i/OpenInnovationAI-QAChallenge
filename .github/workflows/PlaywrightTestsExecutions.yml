@@ -51,6 +51,7 @@ jobs:
           npx playwright test --reporter=html
 
       - name: List Directory Contents
+        if: always()
         run: |
           ls -la  # List all files and directories
 
