@@ -1,27 +1,29 @@
-# Use an official Node.js image as the base
-FROM node:18
+FROM python:3.9
 
-# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+RUN git clone https://github.com/openinnovationai/recruiting-qa-challenge ./
 
-# Install project dependencies
-RUN npm install
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of your application code
-COPY tests/ ./tests/
+RUN apt-get update && apt-get install -y \
+    curl && \
+    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+    apt-get install -y nodejs
+
+RUN apt-get install -y netcat-openbsd
+
+EXPOSE 8000
+
+RUN fastapi dev application.py & \
+    while ! nc -z localhost 8000; do sleep 0.1; done 
+
+RUN mkdir playwright-tests && cd playwright-tests
 COPY . .
-
-# Install Playwright browsers
-RUN npx playwright install
-
-# Install TypeScript
-RUN npm install -g typescript
-
-# Ensure reports directory exists
-RUN mkdir -p playwright-report
-
-# Set the default command to run tests and generate reports
-CMD ["npx", "playwright", "test", "--reporter=html", "--output=playwright-report"]
+RUN apt-get update && apt-get install -y \
+    curl && \
+    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+    apt-get install -y nodejs
+RUN apt-get install -y npm
+RUN npm install
+RUN npx playwright test

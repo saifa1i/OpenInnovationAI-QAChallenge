@@ -8,19 +8,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Install Docker Compose
       - name: Install Docker Compose
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
-      # Step 1: Checkout first repo (app)
+
       - name: Checkout app repo
         uses: actions/checkout@v3
         with:
           repository: openinnovationai/recruiting-qa-challenge
           path: app-repo
 
-      # Step 2: Build and start the app using Docker Compose
       - name: Start Docker Compose App
         working-directory: app-repo
         run: |
@@ -33,7 +31,6 @@ jobs:
           repository: saifa1i/OpenInnovationAI-QAChallenge
           path: playwright-repo
 
-      # Step 4: Install dependencies for Playwright tests
       - name: Set up Node.js and install Playwright dependencies
         uses: actions/setup-node@v3
         with:
@@ -44,7 +41,6 @@ jobs:
           cd playwright-repo
           npm install
 
-      # Step 5: Run Playwright tests inside the same container where the app is running
       - name: Run Playwright tests
         run: |
           cd playwright-repo
@@ -60,7 +56,6 @@ jobs:
         run: |
           zip -r playwright-report.zip playwright-repo/playwright-report  # Zipping the report directory
 
-      # Step 8: Upload Playwright report as artifact
       - name: Upload Playwright report
         if: always()
         uses: actions/upload-artifact@v3
@@ -68,7 +63,6 @@ jobs:
           name: playwright-report
           path: playwright-report.zip
           
-      # Step 6: Stop and clean up Docker containers after tests
       - name: Stop Docker Compose
         if: always()
         working-directory: app-repo
